@@ -3,6 +3,7 @@ project(CppBasicTechnique LANGUAGES CXX VERSION 0.1.0)
 
 # sub dir
 add_subdirectory(c-pointer)
+add_subdirectory(orient_object)
 
 include(CTest)
 enable_testing()
