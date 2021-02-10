@@ -7,6 +7,7 @@ add_executable(${TARGET_NAME}
 )
 
 # コンパイラオプション
+# https://cmake.org/cmake/help/latest/command/target_compile_options.html?highlight=target_compile_options
 target_compile_options(${TARGET_NAME} PRIVATE
     # gcc
     $<$<CXX_COMPILER_ID:GNU>:-Wall -pedantic --pedantic-errors>
@@ -29,6 +30,7 @@ target_compile_options(${TARGET_NAME} PRIVATE
 )
 
 # 定義済みマクロ
+# https://cmake.org/cmake/help/latest/command/target_compile_definitions.html?highlight=target_compile_definitions
 target_compile_definitions(${TARGET_NAME} PRIVATE
     # gcc
     $<$<CXX_COMPILER_ID:GNU>:>
@@ -51,6 +53,7 @@ target_compile_definitions(${TARGET_NAME} PRIVATE
 )
 
 # コンパイラ機能(指定した機能に対応するC++バージョンが自動で選ばれる)
+# https://cmake.org/cmake/help/latest/manual/cmake-compile-features.7.html
 # https://cmake.org/cmake/help/latest/prop_gbl/CMAKE_CXX_KNOWN_FEATURES.html#prop_gbl:CMAKE_CXX_KNOWN_FEATURES
 target_compile_features(${TARGET_NAME} PRIVATE
     # gcc
