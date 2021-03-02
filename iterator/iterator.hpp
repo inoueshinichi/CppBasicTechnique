@@ -167,6 +167,15 @@ circle_pos_iterator_range<Circle*> make_circle_pos_iterator_range(Circle (&arr)[
 // for n in random_generator_range_with_count(10, 0, 10):
 //     print(n)
 
+
+decltype(auto) create_engine()
+{
+    std::random_device seed_gen;
+    static std::mt19937 engine(seed_gen());
+    return engine;
+}
+
+
 template <class T>
 class random_generator_iterator
     // : public random_generator_iterator_base
@@ -176,7 +185,7 @@ class random_generator_iterator
 {
     // 中略
     using iterator = std::iterator<std::input_iterator_tag, T>;
-    using distribution = typename std::uniform_real_distribution<value_type>;
+    using distribution = typename std::uniform_real_distribution<typename iterator::value_type>;
 private:
     struct impl {
         distribution dist;
@@ -187,12 +196,12 @@ private:
         impl(impl&&) = default;
         impl& operator=(const impl&) = delete;
         impl& operator=(impl&&) = default;
-        impl(value_type min, value_type max, std::mt19937_64& mt) 
+        impl(typename iterator::value_type min, typename iterator::value_type max, std::mt19937_64& mt) 
             : dist(min, max)
             , engine(mt)
             , next_is_end(false)
         {}
-        value_type generate() { return this->dist(this->engine.get(); }
+        typename iterator::value_type generate() { return this->dist(this->engine.get()); }
     };
 
     std::unique_ptr<impl> pimpl_;
@@ -204,17 +213,17 @@ public:
     {}
 
     random_generator_iterator(const random_generator_iterator&) = delete;
-    random_generator_iterator(randoM_generator_iterator&&) = defualt;
+    random_generator_iterator(random_generator_iterator&&) = default;
     random_generator_iterator& operator=(const random_generator_iterator&) = delete;
     random_generator_iterator& operator=(random_generator_iterator&&) = default;
 
-    random_generator_iterator(value_type min, value_type max, std::mt19937& mt)
+    random_generator_iterator(typename iterator::value_type min, typename iterator::value_type max, std::mt19937& mt)
         : pimpl_(std::make_unique<impl>(min, max, mt))
         , is_end_iterator_(false)
     {}
 
-    void stop noexcept { this-> pimpl_->next_is_end = true; }
-    value_type operator*() { return this->pimpl_->generate(); }
+    void stop() noexcept { this-> pimpl_->next_is_end = true; }
+    typename iterator::value_type operator*() { return this->pimpl_->generate(); }
     random_generator_iterator& operator++() noexcept
     {
         if (this->pimpl_->next_is_end)
