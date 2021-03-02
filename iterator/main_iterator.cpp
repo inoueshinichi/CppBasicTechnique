@@ -95,14 +95,14 @@ int main(int argc, char** argv)
     // iterator.hppでIteratorクラス、Rangeクラス、Rangeクラス用の実引数型推論用のテンプレート関数を定義
     std::vector<Circle> v(10);
     Circle arr[10] = {};
-    for (auto&& p : make_circle_pos_iterator_range(v))
-    {
-        std::cout << p.x << p.y << std::endl;
-    }
-    for (auto&& p : make_circle_pos_iterator_range(arr))
-    {
-        st::cout << p.x << p.y << std::endl;
-    }
+    // for (auto&& p : make_circle_pos_iterator_range(v))
+    // {
+    //     std::cout << p.x << p.y << std::endl;
+    // }
+    // for (auto&& p : make_circle_pos_iterator_range(arr))
+    // {
+    //     st::cout << p.x << p.y << std::endl;
+    // }
 
     ///////////////////////////////////////////////
     // pythonのジェネレータをC++のイテレータで実装する方法
@@ -122,13 +122,13 @@ int main(int argc, char** argv)
             ri.stop();
     }
 
-    std::cout << "generate: random_generater_range" << std::endl;
-    for (auto&& n : random_generator_range<int>(0, 10, engine))
-    {
-        std::cout << n << std::endl;
-        if (n == 0)
-            break;
-    }
+    // std::cout << "generate: random_generater_range" << std::endl;
+    // for (auto&& n : random_generator_range<int>(0, 10, engine))
+    // {
+    //     std::cout << n << std::endl;
+    //     if (n == 0)
+    //         break;
+    // }
 
     // static_assert(is_random_generator_iterator_v<random_generator_iterator_with_count<int>>, "err");
     // std::cout << "generate: random_generator_iterator_with_count" << std::endl;

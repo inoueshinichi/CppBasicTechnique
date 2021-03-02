@@ -121,7 +121,7 @@ public:
 
 // 対処法 -> テンプレート関数の実引数型推論を使う
 template <class Iterator, typename std::enable_if<std::is_same<Circle, 
-    typename std::iterator_traits<Iterator>::value_type>::value, std::nullptr_t>::type = nullptr>
+    typename std::iterator_traits<Iterator>::value_type>::value>::type* = nullptr>
 circle_pos_iterator_range<Iterator> make_circle_pos_iterator_range(Iterator begin, Iterator end)
 {
     return {begin, end};
@@ -241,7 +241,7 @@ public:
 
     constexpr bool operator==(const random_generator_iterator& r) const noexcept
     {
-        return this->is_ned_iteratpr_ == r.is_end_iterator_;
+        return this->is_end_iteratpr_ == r.is_end_iterator_;
     }
 
     constexpr bool operator!=(const random_generator_iterator& r) const noexcept
